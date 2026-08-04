@@ -1,0 +1,258 @@
+Here's a complete **Prompt Ladder** with six runs, representative outputs, comparisons, and an honest evaluation. It's based on **AI healthcare chatbot feature prioritization**, which is more unique than a generic "build a website" task.
+
+---
+
+# Prompt Ladder: Improving an AI Prompt One Layer at a Time
+
+## Baseline (Weak Prompt)
+
+### Prompt
+
+> Help me decide which features I should build first for my AI healthcare chatbot.
+
+### Representative Output
+
+* User login
+* Chat interface
+* Appointment booking
+* Symptom checker
+* Notifications
+* Doctor chat
+
+### Notes
+
+**What changed in the prompt:** None (baseline).
+
+**What actually improved in the output:** N/A.
+
+**What still failed:** The response was a generic feature list with no reasoning, priorities, or consideration of users or constraints.
+
+**What I'd try next:** Give the AI a clearer goal.
+
+---
+
+# Version 1 – Layer: Clear Goal
+
+### Prompt
+
+> I need help prioritizing features for an AI healthcare chatbot MVP. Rank the features I should build first.
+
+### Representative Output
+
+| Priority | Feature              |
+| -------- | -------------------- |
+| 1        | Symptom Checker      |
+| 2        | Health Information   |
+| 3        | Appointment Booking  |
+| 4        | Medication Reminders |
+| 5        | Notifications        |
+
+### Compared with Baseline
+
+| Baseline            | Version 1            |
+| ------------------- | -------------------- |
+| Random feature list | Ranked feature list  |
+| No priorities       | Clear priority order |
+| No explanation      | Brief reasoning      |
+
+### Notes
+
+**What changed in the prompt:** Added a clear goal (prioritize features).
+
+**What actually improved in the output:** Instead of listing ideas randomly, the model started making decisions about what should come first.
+
+**What still failed:** The recommendations still felt generic because the chatbot's users weren't defined.
+
+**What I'd try next:** Specify the target audience.
+
+---
+
+# Version 2 – Layer: Audience
+
+### Prompt
+
+> I need help prioritizing features for an AI healthcare chatbot MVP designed for rural Indian patients with limited access to healthcare.
+
+### Representative Output
+
+1. Multilingual symptom checker
+2. Offline health information
+3. Emergency referral
+4. Medicine reminders
+5. Doctor directory
+
+### Compared with Version 1
+
+| Version 1                   | Version 2                  |
+| --------------------------- | -------------------------- |
+| Generic healthcare features | Audience-specific features |
+| Appointment booking         | Offline support            |
+| Notifications               | Multilingual support       |
+
+### Notes
+
+**What changed in the prompt:** Added the intended users.
+
+**What actually improved in the output:** The recommendations became much more relevant. The model stopped suggesting features that assumed easy access to hospitals or the internet.
+
+**What still failed:** Some recommendations still assumed unlimited development time and resources.
+
+**What I'd try next:** Add project constraints.
+
+---
+
+# Version 3 – Layer: Context
+
+### Prompt
+
+> I need help prioritizing features for an AI healthcare chatbot MVP designed for rural Indian patients with limited healthcare access.
+>
+> Constraints:
+>
+> * Student team
+> * Four-week deadline
+> * Limited budget
+> * Low-end Android phones
+> * No hospital integration
+
+### Representative Output
+
+1. Symptom guidance
+2. Multilingual chatbot
+3. Emergency escalation
+4. Offline medicine information
+
+Skipped:
+
+* Hospital integration
+* Video consultation
+
+### Compared with Version 2
+
+| Version 2                   | Version 3                    |
+| --------------------------- | ---------------------------- |
+| Ideal-world suggestions     | Realistic MVP                |
+| Expensive features included | Unrealistic features removed |
+| Little explanation          | Reasons for exclusions       |
+
+### Notes
+
+**What changed in the prompt:** Added real project constraints.
+
+**What actually improved in the output:** The roadmap became achievable. The AI stopped recommending features that didn't fit the team's budget or timeline.
+
+**What still failed:** The output was difficult to scan because everything was written as paragraphs.
+
+**What I'd try next:** Request a structured format.
+
+---
+
+# Version 4 – Layer: Output Format
+
+### Prompt
+
+(Add only this)
+
+> Present the results in a table with Feature, User Problem, Development Effort, User Impact, Priority, and Reason.
+
+### Representative Output
+
+| Feature             | Effort | Impact | Priority |
+| ------------------- | ------ | ------ | -------- |
+| Symptom Checker     | Medium | High   | 1        |
+| Offline Health Tips | Low    | High   | 2        |
+| Medicine Reminder   | Low    | Medium | 3        |
+
+### Compared with Version 3
+
+| Version 3       | Version 4       |
+| --------------- | --------------- |
+| Paragraphs      | Organized table |
+| Hard to compare | Easy comparison |
+
+### Notes
+
+**What changed in the prompt:** Requested a specific output format.
+
+**What actually improved in the output:** The information became much easier to compare and review.
+
+**What still failed:** **This didn't improve the quality of the recommendations.** It only improved presentation, not reasoning.
+
+**What I'd try next:** Ask the AI to verify and critique its own recommendations.
+
+---
+
+# Version 5 – Layer: Verification
+
+### Prompt
+
+(Add only this)
+
+> Before finalizing:
+>
+> * State your assumptions.
+> * Identify one risky recommendation.
+> * Mention one feature you intentionally excluded and why.
+> * Review whether this roadmap is realistic.
+
+### Representative Output
+
+Assumptions:
+
+* Internet connectivity is unreliable.
+* Users have basic smartphones.
+
+Risk:
+
+* Symptom checker accuracy depends on user input.
+
+Excluded:
+
+* Video consultation because it exceeds MVP scope.
+
+Self-review:
+
+* Suitable for a four-week student project.
+
+### Compared with Version 4
+
+| Version 4            | Version 5                     |
+| -------------------- | ----------------------------- |
+| Only recommendations | Recommendations + self-review |
+| No assumptions       | Explicit assumptions          |
+| No critique          | AI identifies risks           |
+
+### Notes
+
+**What changed in the prompt:** Added a verification step.
+
+**What actually improved in the output:** The model became more transparent about its reasoning, acknowledged limitations, and caught potential issues before presenting the final roadmap.
+
+**What still failed:** The AI still couldn't estimate actual development time with high confidence.
+
+**What I'd try next:** Use real project documentation or technical specifications as additional context.
+
+---
+
+# Final Reusable Prompt
+
+> You are an experienced product manager helping a student startup prioritize features for an AI healthcare chatbot MVP.
+>
+> The chatbot is intended for rural Indian users with limited access to healthcare. It will be built by a small student team within four weeks on a limited budget and should work on low-end Android devices. Hospital integrations are out of scope.
+>
+> Prioritize the most valuable MVP features and present them in a table containing:
+>
+> * Feature
+> * User Problem Solved
+> * Development Effort (Low/Medium/High)
+> * User Impact (Low/Medium/High)
+> * Priority
+> * Justification
+>
+> Before presenting the roadmap:
+>
+> 1. State your assumptions.
+> 2. Identify one risky recommendation.
+> 3. Mention one feature you intentionally excluded and explain why.
+> 4. Review whether the roadmap is realistic for a four-week student project.
+
