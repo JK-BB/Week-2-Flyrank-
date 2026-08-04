@@ -1,0 +1,24 @@
+You are a senior frontend engineer.
+
+Build a responsive settings page for my portfolio website.
+
+Requirements:
+- HTML, CSS and JavaScript only.
+- Match the existing cream and pastel design.
+- Name field required.
+- Email must be valid.
+- Theme dropdown with Light and Dark.
+- Notification toggle.
+- Save button disabled until the form is valid.
+- Show inline validation errors.
+- Accessible labels and keyboard navigation.
+- Use semantic HTML.
+- Don't duplicate styles already in style.css.
+- Keep JS modular.
+
+Before writing code:
+1. Explain your implementation plan.
+2. List possible edge cases.
+3. Generate the code.
+4. Write tests/checklist verifying every requirement.
+5. Review your own code and suggest improvements.
