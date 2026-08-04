@@ -1,0 +1,417 @@
+git clone https://github.com/JK-BB/Week-2-Flyrank-
+cd Week-2-Flyrank-
+git checkout -b feature/settings-vague
+# save the downloaded settings.html into this folder
+git add settings.html
+git commit -m "Add settings page with profile, appearance, and notification controls"
+git push -u origin feature/settings-vague 
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f6f5f1;
+    --paper: #ffffff;
+    --ink: #181a16;
+    --muted: #6f7267;
+    --line: #e4e2da;
+    --accent: #0e6b57;
+    --accent-soft: #e4efec;
+    --danger: #b3462c;
+    --radius: 10px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display:flex;
+    justify-content:center;
+    padding: 56px 20px 80px;
+  }
+
+  .page{
+    width: 100%;
+    max-width: 620px;
+  }
+
+  .eyebrow{
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+
+  h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 34px;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .lede{
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0 0 40px;
+  }
+
+  form{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .section{
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .section:last-of-type{ border-bottom: none; }
+
+  .section-label{
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 20px;
+  }
+
+  .field{
+    margin-bottom: 18px;
+  }
+  .field:last-child{ margin-bottom: 0; }
+
+  label.field-label{
+    display:block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hint{
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 4px 0 0;
+  }
+
+  input[type="text"],
+  input[type="email"]{
+    width: 100%;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 14.5px;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus{
+    border-color: var(--accent);
+    background: var(--paper);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  input:invalid:not(:placeholder-shown){
+    border-color: var(--danger);
+  }
+
+  /* Theme picker with live preview swatches */
+  .theme-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .theme-option{
+    position: relative;
+    cursor: pointer;
+  }
+  .theme-option input{
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  .theme-card{
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 12px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .theme-option input:checked + .theme-card{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .swatch{
+    height: 34px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .swatch.light{ background: linear-gradient(135deg,#ffffff 50%,#f0efe9 50%); }
+  .swatch.dark{ background: linear-gradient(135deg,#2a2b28 50%,#151613 50%); }
+  .swatch.auto{ background: linear-gradient(135deg,#ffffff 50%,#151613 50%); }
+  .theme-name{
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* Toggle rows */
+  .toggle-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .toggle-row:last-child{ border-bottom:none; padding-bottom: 0;}
+  .toggle-row:first-child{ padding-top: 0; }
+
+  .toggle-copy .field-label{ margin-bottom: 2px; }
+  .toggle-copy .hint{ margin-top: 2px; }
+
+  .switch{
+    position: relative;
+    width: 42px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .switch input{
+    opacity:0;
+    width:0;
+    height:0;
+  }
+  .switch-track{
+    position:absolute;
+    inset:0;
+    background: #d8d6cc;
+    border-radius: 999px;
+    cursor:pointer;
+    transition: background .15s ease;
+  }
+  .switch-track::before{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    left:3px;
+    top:3px;
+    background:#fff;
+    border-radius:50%;
+    transition: transform .15s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .switch input:checked + .switch-track{ background: var(--accent); }
+  .switch input:checked + .switch-track::before{ transform: translateX(18px); }
+  .switch input:focus-visible + .switch-track{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .footer{
+    display:flex;
+    align-items:center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 32px;
+    background: var(--bg);
+  }
+
+  .status{
+    font-size: 13px;
+    color: var(--accent);
+    margin-right: auto;
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  .status.show{ opacity: 1; }
+
+  button{
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform .1s ease, background .15s ease;
+  }
+  button.save{
+    background: var(--accent);
+    color: #fff;
+  }
+  button.save:hover{ background: #0b5949; }
+  button.save:active{ transform: scale(0.98); }
+  button.save:disabled{
+    background: #b7c4bf;
+    cursor: default;
+  }
+
+  @media (max-width: 480px){
+    .section{ padding: 22px 20px; }
+    .footer{ padding: 16px 20px; flex-wrap: wrap; }
+    .theme-grid{ grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .theme-name{ font-size: 11.5px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <p class="eyebrow">Account</p>
+  <h1>Settings</h1>
+  <p class="lede">Update your profile, choose how the app looks, and control what you hear from us.</p>
+
+  <form id="settingsForm">
+    <div class="section">
+      <p class="section-label">Profile</p>
+      <div class="field">
+        <label class="field-label" for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Jordan Lee" value="Jordan Lee" required>
+      </div>
+      <div class="field">
+        <label class="field-label" for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="jordan@example.com" value="jordan@example.com" required>
+        <p class="hint">We'll send a confirmation link if you change this.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="section-label">Appearance</p>
+      <div class="theme-grid" role="radiogroup" aria-label="Theme preference">
+        <label class="theme-option">
+          <input type="radio" name="theme" value="light" checked>
+          <span class="theme-card">
+            <span class="swatch light"></span>
+            <span class="theme-name">Light</span>
+          </span>
+        </label>
+        <label class="theme-option">
+          <input type="radio" name="theme" value="dark">
+          <span class="theme-card">
+            <span class="swatch dark"></span>
+            <span class="theme-name">Dark</span>
+          </span>
+        </label>
+        <label class="theme-option">
+          <input type="radio" name="theme" value="auto">
+          <span class="theme-card">
+            <span class="swatch auto"></span>
+            <span class="theme-name">Auto</span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="section-label">Notifications</p>
+
+      <div class="toggle-row">
+        <div class="toggle-copy">
+          <p class="field-label">Email updates</p>
+          <p class="hint">Product news and account activity.</p>
+        </div>
+        <span class="switch">
+          <input type="checkbox" id="notifyEmail" name="notifyEmail" checked>
+          <span class="switch-track"></span>
+        </span>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-copy">
+          <p class="field-label">Push notifications</p>
+          <p class="hint">Real-time alerts on this device.</p>
+        </div>
+        <span class="switch">
+          <input type="checkbox" id="notifyPush" name="notifyPush">
+          <span class="switch-track"></span>
+        </span>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-copy">
+          <p class="field-label">Weekly summary</p>
+          <p class="hint">A digest every Monday morning.</p>
+        </div>
+        <span class="switch">
+          <input type="checkbox" id="notifyWeekly" name="notifyWeekly" checked>
+          <span class="switch-track"></span>
+        </span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="status" id="status">Saved</span>
+      <button type="submit" class="save" id="saveBtn">Save changes</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('settingsForm');
+  const status = document.getElementById('status');
+  const saveBtn = document.getElementById('saveBtn');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+
+    const data = {
+      name: form.name.value,
+      email: form.email.value,
+      theme: form.theme.value,
+      notifyEmail: form.notifyEmail.checked,
+      notifyPush: form.notifyPush.checked,
+      notifyWeekly: form.notifyWeekly.checked
+    };
+
+    // Replace this with a real request to your backend, e.g.:
+    // fetch('/api/settings', { method: 'POST', body: JSON.stringify(data) })
+
+    console.log('Settings saved:', data);
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Saved';
+    status.textContent = 'Saved';
+    status.classList.add('show');
+
+    setTimeout(() => {
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Save changes';
+      status.classList.remove('show');
+    }, 1800);
+  });
+</script>
+
+</body>
+</html>
